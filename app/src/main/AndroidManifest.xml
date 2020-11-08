@@ -16,6 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".DatosNotas"></activity>
+        <activity android:name=".ActivityTareas"></activity>
+        <activity android:name=".DatosTareas"></activity>
     </application>
 
 </manifest>

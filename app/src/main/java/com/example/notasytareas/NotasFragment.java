@@ -1,5 +1,6 @@
 package com.example.notasytareas;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -63,6 +64,29 @@ public class NotasFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_notas, container, false);
+    }
+
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
     }
 
     public interface OnFragmentInteractionListener {
