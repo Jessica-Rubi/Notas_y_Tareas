@@ -46,7 +46,7 @@
 
 
             <ImageButton
-                android:id="@+id/imageBtnVideoNota"
+                android:id="@+id/imageBtnArchivoNota"
                 android:layout_width="wrap_content"
                 android:layout_height="33dp"
                 android:layout_weight="1"
