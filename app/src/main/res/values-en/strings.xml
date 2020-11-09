@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Notes and Tasks</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Guardar">Save</string>
+    <string name="Notas">Notes</string>
+    <string name="Agregar">Add</string>
+    <string name="BuscarT">Search Homework</string>
+    <string name="BuscarN">Search Note</string>
+    <string name="Titulo">Title</string>
+    <string name="Descripcion">Description</string>
+    <string name="Fecha">Date</string>
+    <string name="Hora">Time</string>
+    <string name="Actualizar">Update</string>
+    <string name="Tareas">Homework</string>
+</resources>
