@@ -18,6 +18,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.Console;
+
 public class MainActivity extends AppCompatActivity {
     ListView lista;
     EditText txtbuscar;
