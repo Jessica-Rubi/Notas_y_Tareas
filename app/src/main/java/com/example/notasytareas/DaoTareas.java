@@ -49,7 +49,7 @@ public class DaoTareas {
         return  _midb.delete("recordatorio","_id='"+id+"'",null);
     }
 
-    public List<Tareas> getAllNotificacines() {
+    public List<Tareas> getAll() {
         List<Tareas> studentsArrayList = new ArrayList<Tareas>();
         String selectQuery = "SELECT * FROM " + "recordatorio" + " ORDER BY FormatoFecha ASC";
         Log.d("", selectQuery);

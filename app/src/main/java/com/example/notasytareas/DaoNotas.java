@@ -43,7 +43,7 @@ public class DaoNotas {
         return  _midb.delete("nota","_id='"+id+"'",null);
     }
 
-    public List<Notas> getAllNotificacines() {
+    public List<Notas> getAll() {
         List<Notas> studentsArrayList = new ArrayList<Notas>();
         String selectQuery = "SELECT * FROM " + "nota";
         Log.d("", selectQuery);

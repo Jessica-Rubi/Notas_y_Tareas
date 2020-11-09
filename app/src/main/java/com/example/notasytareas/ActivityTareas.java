@@ -121,10 +121,10 @@ public class ActivityTareas extends AppCompatActivity {
 
                                 DaoTareas dao = new DaoTareas(getBaseContext());
                                 if (dao.delete(tarea.getId() + "") > 0) {
-                                    Toast.makeText(getBaseContext(), "Recordatorio Eliminado", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getBaseContext(), "Tarea Eliminada", Toast.LENGTH_SHORT).show();
                                     cargardatos();
                                 } else {
-                                    Toast.makeText(getBaseContext(), "Recordatorio no Eliminado", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getBaseContext(), "Tarea no Eliminada", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         })
@@ -143,7 +143,7 @@ public class ActivityTareas extends AppCompatActivity {
     public void cargardatos() {
         DaoTareas dao = new DaoTareas(ActivityTareas.this);
         adp = new ArrayAdapter<Tareas>(ActivityTareas.this,
-                android.R.layout.simple_list_item_1, dao.getAllNotificacines());
+                android.R.layout.simple_list_item_1, dao.getAll());
         lista.setAdapter(adp);
     }
 
@@ -156,10 +156,10 @@ public class ActivityTareas extends AppCompatActivity {
 
                 DaoTareas dao = new DaoTareas(ActivityTareas.this);
                 if (dao.insert(new Tareas(objcontacto.getTitulo(), objcontacto.getDescripcion(), objcontacto.getFecha(), objcontacto.getHora(), objcontacto.getFordate())) > 0) {
-                    Toast.makeText(getBaseContext(), "Recordatorio Insertado", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "Tarea Insertado", Toast.LENGTH_SHORT).show();
                     cargardatos();
                 } else {
-                    Toast.makeText(getBaseContext(), "No se pudo Insertar el Recordatorio", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "No se pudo Insertar la Tarea", Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception err) {
                 Toast.makeText(getBaseContext(), err.getMessage(), Toast.LENGTH_LONG).show();
@@ -178,10 +178,10 @@ public class ActivityTareas extends AppCompatActivity {
                 cargardatos();
 
                 if (dao.update(recordatorio) > 0) {
-                    Toast.makeText(getBaseContext(), "Recordatorio Actualizado", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "Tarea Actualizada", Toast.LENGTH_SHORT).show();
                     cargardatos();
                 } else {
-                    Toast.makeText(getBaseContext(), "No se pudo Actualizar el Recordatorio", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "No se pudo Actualizar la Tarea", Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception err) {
                 Toast.makeText(getBaseContext(), err.getMessage(), Toast.LENGTH_LONG).show();

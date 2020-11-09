@@ -33,7 +33,6 @@ public class DatosNotas extends AppCompatActivity implements NotasFragment.OnFra
 
             } else if (bundle.getString("operacion").equalsIgnoreCase("1")) {
                 id = bundle.getString("id");
-                //Toast.makeText(getBaseContext(),id,Toast.LENGTH_SHORT).show();
                 titulo.setText(bundle.getString("titulo"));
                 descripcion.setText(bundle.getString("descripcion"));
                 guardar.setVisibility(View.INVISIBLE);
@@ -59,7 +58,6 @@ public class DatosNotas extends AppCompatActivity implements NotasFragment.OnFra
                 obj.setDescripcion(descripcion.getText().toString());
 
                 atras.putExtra("minota", obj);
-
                 setResult(RESULT_OK, atras);
                 finish();
             }
@@ -79,7 +77,6 @@ public class DatosNotas extends AppCompatActivity implements NotasFragment.OnFra
                 obj.setDescripcion(descripcion.getText().toString());
 
                 atras.putExtra("minota", obj);
-
                 setResult(RESULT_OK, atras);
                 finish();
             }

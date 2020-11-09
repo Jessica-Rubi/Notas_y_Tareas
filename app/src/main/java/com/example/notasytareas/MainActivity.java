@@ -18,8 +18,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.io.Console;
-
 public class MainActivity extends AppCompatActivity {
     ListView lista;
     EditText txtbuscar;
@@ -93,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
                                     siguiente.putExtra("descripcion", note.getDescripcion());
                                     startActivityForResult(siguiente,1001);
                                 }
-
                                 if(operaciones[which].equalsIgnoreCase(operaciones[1])){
                                     confirmacion();
                                 }
@@ -137,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
     public void cargardatos(){
         DaoNotas dao = new DaoNotas(MainActivity.this);
         adp = new ArrayAdapter<Notas>(MainActivity.this,
-                android.R.layout.simple_list_item_1,dao.getAllNotificacines());
+                android.R.layout.simple_list_item_1,dao.getAll());
         lista.setAdapter(adp);
     }
 
@@ -146,7 +143,6 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode==RESULT_OK && requestCode == 1000) {
             try {
-                //obtener el objeto contacto
                 Notas objcontacto = (Notas) data.getSerializableExtra("minota");
 
                 DaoNotas dao = new DaoNotas(MainActivity.this);
@@ -156,15 +152,11 @@ public class MainActivity extends AppCompatActivity {
                 }else{
                     Toast.makeText(getBaseContext(), "No se pudo Insertar el Nota", Toast.LENGTH_SHORT).show();
                 }
-
             }catch (Exception err){
                 Toast.makeText(getBaseContext(),err.getMessage(),Toast.LENGTH_LONG).show();
             }
-
         }else if((resultCode==RESULT_OK && requestCode == 1001) || requestCode == 1002){
             try {
-
-                //obtener el objeto contacto
                 Notas objcontacto = (Notas) data.getSerializableExtra("minota");
 
                 DaoNotas dao = new DaoNotas(MainActivity.this);
@@ -180,7 +172,6 @@ public class MainActivity extends AppCompatActivity {
                 }else{
                     Toast.makeText(getBaseContext(), "No se pudo Actualizar la Nota", Toast.LENGTH_SHORT).show();
                 }
-
             }catch (Exception err){
                 Toast.makeText(getBaseContext(),err.getMessage(),Toast.LENGTH_LONG).show();
             }
