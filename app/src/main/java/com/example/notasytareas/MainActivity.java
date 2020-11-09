@@ -6,19 +6,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.Console;
 
 public class MainActivity extends AppCompatActivity {
     ListView lista;
-    TextView txtbuscar;
+    EditText txtbuscar;
     Button BotonCambioATareas;
     String operaciones[] =
             new String[]
@@ -38,23 +42,38 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+        txtbuscar = (EditText) findViewById(R.id.txtbuscar);
         lista =(ListView)findViewById(R.id.listaNotas);
         lista.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Notas note= new Notas();
+                note= new Notas();
                 note.setId(adp.getItem(i).getId());
                 note.setTitulo(adp.getItem(i).getTitulo());
                 note.setDescripcion(adp.getItem(i).getDescripcion());
-
                 btnList_click();
                 return false;
             }
         });
         cargardatos();
 
-//        startService(new Intent(getBaseContext(),Servicio.class));
+        txtbuscar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                adp.getFilter().filter(charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     public void  btnList_click(){
@@ -66,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 if(operaciones[which].equalsIgnoreCase(operaciones[0])){
-                                    Intent siguiente = new Intent(getApplication(), MainActivity.class);
+                                    Intent siguiente = new Intent(getApplication(), DatosNotas.class);
 
                                     siguiente.putExtra("operacion", "1");
                                     siguiente.putExtra("id", note.getId()+"");

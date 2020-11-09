@@ -20,18 +20,15 @@ public class DatosTareas extends AppCompatActivity implements TareasFragment.OnF
     Button guardar;
     Button actualizar;
 
-    ImageButton btnVideo;
     EditText titulo;
     EditText descripcion;
     EditText fecha;
     EditText hora;
-    // Variables.
-    private String ruta_imagen; // La ruta de la imagen que el usuario eligio
-    // para la imagen de su persona.
-    private int SELECCIONAR_IMAGEN = 237487;
 
     private  int dia,mes,year,h,minutos;
     private String id = "";
+    String fordate = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,19 +36,6 @@ public class DatosTareas extends AppCompatActivity implements TareasFragment.OnF
         mapear();
         insertar();
         actualizar();
-//        btnVideo = findViewById(R.id.imageBtnVideoTarea);
-//        btnVideo.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent siguiente = new Intent(getApplication(),Multimedia.class);
-//                siguiente.putExtra("operacion", "0");
-//                startActivityForResult(siguiente,1000);
-//            }
-//        });
-        /**
-         * Al hacer click en el boton agregar Persona se abre una ventana para la edicion de una
-         * nueva persona..
-         */
         try {
             Bundle bundle = getIntent().getExtras();
 
@@ -74,7 +58,6 @@ public class DatosTareas extends AppCompatActivity implements TareasFragment.OnF
 
     public void mapear(){
         actualizar = (Button)findViewById(R.id.btnactualizar);
-
         titulo = (EditText) findViewById(R.id.txttitulo);
         descripcion = (EditText) findViewById(R.id.txtdescripcion);
         fecha = (EditText) findViewById(R.id.txtfecha);
@@ -90,18 +73,16 @@ public class DatosTareas extends AppCompatActivity implements TareasFragment.OnF
             public void onClick(View view) {
                 Intent atras = new Intent();
 
-                Tareas alum = new Tareas();
-                alum.setTitulo(titulo.getText().toString());
-                alum.setDescripcion(descripcion.getText().toString());
-                alum.setFecha(fecha.getText().toString());
-                alum.setHora(hora.getText().toString());
+                Tareas obj = new Tareas();
+                obj.setTitulo(titulo.getText().toString());
+                obj.setDescripcion(descripcion.getText().toString());
+                obj.setFecha(fecha.getText().toString());
+                obj.setHora(hora.getText().toString());
+                obj.setFordate(fordate);
 
-                atras.putExtra("mirecordatorio", alum);
-
+                atras.putExtra("mirecordatorio", obj);
                 setResult(RESULT_OK, atras);
                 finish();
-
-
             }
         });
     }
@@ -114,16 +95,15 @@ public class DatosTareas extends AppCompatActivity implements TareasFragment.OnF
 
                 Intent atras = new Intent();
 
-                Tareas alum = new Tareas();
+                Tareas obj = new Tareas();
+                obj.setId(Integer.parseInt(id));
+                obj.setTitulo(titulo.getText().toString());
+                obj.setDescripcion(descripcion.getText().toString());
+                obj.setFecha(fecha.getText().toString());
+                obj.setHora(hora.getText().toString());
+                obj.setFordate(fordate);
 
-                alum.setId(Integer.parseInt(id));
-                alum.setTitulo(titulo.getText().toString());
-                alum.setDescripcion(descripcion.getText().toString());
-                alum.setFecha(fecha.getText().toString());
-                alum.setHora(hora.getText().toString());
-
-                atras.putExtra("mirecordatorio", alum);
-
+                atras.putExtra("mirecordatorio", obj);
                 setResult(RESULT_OK, atras);
                 finish();
             }
@@ -142,6 +122,7 @@ public class DatosTareas extends AppCompatActivity implements TareasFragment.OnF
                 @Override
                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                     fecha.setText(dayOfMonth+"/"+(monthOfYear+1)+"/"+year);
+                    fordate = year + "-" + (monthOfYear+1)+ "-" + dayOfMonth;
                 }
             }
                     ,year,mes,dia);

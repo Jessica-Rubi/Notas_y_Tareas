@@ -7,8 +7,8 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_width="368dp"
-        android:layout_height="495dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="8dp"
@@ -42,9 +42,10 @@
 
         <ListView
             android:id="@+id/listaTareas"
+            style="@style/Widget.AppCompat.Light.ListView.DropDown"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="#06C5DD"
+            android:divider="@android:color/darker_gray"
             android:dividerHeight="0.9dp"
             android:footerDividersEnabled="false"
             android:headerDividersEnabled="false"
