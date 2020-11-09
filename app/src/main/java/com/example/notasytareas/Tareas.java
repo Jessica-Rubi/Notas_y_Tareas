@@ -8,13 +8,16 @@ public class Tareas implements Serializable {
     private String descripcion;
     private String fecha;
     private String hora;
+    private String fordate;
 
     public Tareas(){};
-    public Tareas(String titulo, String descripcion, String fecha, String hora) {
+
+    public Tareas(String titulo, String descripcion, String fecha, String hora, String fordate) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.fecha = fecha;
         this.hora = hora;
+        this.fordate = fordate;
     }
 
     public void setId(int id) {
@@ -35,6 +38,14 @@ public class Tareas implements Serializable {
 
     public void setHora(String hora) {
         this.hora = hora;
+    }
+
+    public String getFordate() {
+        return fordate;
+    }
+
+    public void setFordate(String fordate) {
+        this.fordate = fordate;
     }
 
     public int getId() {
@@ -59,6 +70,6 @@ public class Tareas implements Serializable {
 
     @Override
     public String toString() {
-        return "\nID:"+this.id + "\nTitulo:" + this.titulo + "\nDescripcion:" + this.descripcion+ "\nFecha:" + this.fecha+ "\nHora:" + this.hora;
+        return "\nTitulo: " + this.titulo + "\nDescripcion: " + this.descripcion+ "\nFecha:" + this.fecha+ "\nHora:" + this.hora + "\n";
     }
 }

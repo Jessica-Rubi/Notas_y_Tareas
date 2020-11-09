@@ -9,14 +9,15 @@ public class BDT extends SQLiteOpenHelper {
     private static final int DB_VERSION = 1;
     public static final String[]COLUMNS_RECORDATORIO =
             {"_id","Titulo","Descripcion",
-                    "Fecha","Hora"};
+                    "Fecha","Hora","FormatoFecha"};
     public static final String TABLE_RECORDATORIO_NAME="recordatorio";
     private  final String TABLE_RECORDATORIO = "create table recordatorio ("+
             COLUMNS_RECORDATORIO[0]+" integer primary key autoincrement, "+
             COLUMNS_RECORDATORIO[1]+" varchar(100) null," +
             COLUMNS_RECORDATORIO[2]+" text not null,"+
             COLUMNS_RECORDATORIO[3]+" varchar(25) null,"+
-            COLUMNS_RECORDATORIO[4]+" varchar(10) null);";
+            COLUMNS_RECORDATORIO[4]+" varchar(10) null,"+
+            COLUMNS_RECORDATORIO[5]+" varchar(25) null);";
 
 
     public BDT(Context contexto) {

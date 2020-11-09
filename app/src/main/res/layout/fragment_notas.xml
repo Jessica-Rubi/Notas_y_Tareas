@@ -18,7 +18,7 @@
             android:id="@+id/txttitulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Titulo"
+            android:hint="@string/Titulo"
             android:ems="10"
             android:inputType="textPersonName" />
 
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.25"
             android:ems="10"
-            android:hint="Descripcion"
+            android:hint="@string/Descripcion"
             android:inputType="textMultiLine" />
 
         <LinearLayout
@@ -75,7 +75,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="#3365B3"
-            android:text="Agregar"
+            android:text="@string/Agregar"
             android:textSize="18sp" />
 
         <Button
@@ -83,7 +83,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="?attr/actionModeSplitBackground"
-            android:text="Actualizar"
+            android:text="@string/Actualizar"
             android:textSize="18sp" />
     </LinearLayout>
 

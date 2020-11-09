@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#3365B3"
-            android:text="Tareas" />
+            android:text="@string/Tareas" />
 
         <TextView
             android:id="@+id/txtNotas"
@@ -29,23 +29,22 @@
             android:layout_gravity="center_horizontal"
             android:textAlignment="center"
             android:textSize="20dp"
-            android:text="Notas" />
+            android:text="@string/Notas" />
 
         <EditText
             android:id="@+id/txtbuscar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Buscar Nota"
+            android:hint="@string/BuscarN"
             android:inputType="textFilter"
             android:textColor="#3365B3"
             android:textSize="20dp" />
 
         <ListView
             android:id="@+id/listaNotas"
-            style="@style/Widget.AppCompat.Light.ListView.DropDown"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="@android:color/darker_gray"
+            android:divider="#06C5DD"
             android:dividerHeight="0.9dp"
             android:footerDividersEnabled="false"
             android:headerDividersEnabled="false"
