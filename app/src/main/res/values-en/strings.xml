@@ -13,4 +13,6 @@
     <string name="Hora">Time</string>
     <string name="Actualizar">Update</string>
     <string name="Tareas">Homework</string>
+    <string name="GrabarA">Record Audio</string>
+    <string name="ReproducirA">Play Audio</string>
 </resources>

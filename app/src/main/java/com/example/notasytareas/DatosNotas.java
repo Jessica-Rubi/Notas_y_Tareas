@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class DatosNotas extends AppCompatActivity implements NotasFragment.OnFragmentInteractionListener, View.OnClickListener{
     Button guardar;
     Button actualizar;
+    ImageButton audio;
 
     EditText titulo;
     EditText descripcion;
@@ -24,6 +26,7 @@ public class DatosNotas extends AppCompatActivity implements NotasFragment.OnFra
         mapear();
         insertar();
         actualizar();
+        grabar();
 
         try {
             Bundle bundle = getIntent().getExtras();
@@ -79,6 +82,18 @@ public class DatosNotas extends AppCompatActivity implements NotasFragment.OnFra
                 atras.putExtra("minota", obj);
                 setResult(RESULT_OK, atras);
                 finish();
+            }
+        });
+    }
+
+    public void grabar(){
+        audio = (ImageButton) findViewById(R.id.imageBtnAudioNota);
+        audio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent siguiente = new Intent(getApplication(),Audio.class);
+                siguiente.putExtra("operacion", "0");
+                startActivityForResult(siguiente,1000);
             }
         });
     }

@@ -21,25 +21,25 @@ public class DaoTareas {
     public long insert(Tareas c){
         ContentValues cv = new ContentValues();
 
-        cv.put(BDT.COLUMNS_RECORDATORIO[1],c.getTitulo());
-        cv.put(BDT.COLUMNS_RECORDATORIO[2],c.getDescripcion());
-        cv.put(BDT.COLUMNS_RECORDATORIO[3],c.getFecha());
-        cv.put(BDT.COLUMNS_RECORDATORIO[4],c.getHora());
-        cv.put(BDT.COLUMNS_RECORDATORIO[5], c.getFordate());
+        cv.put(BDT.COLUMNS_TAREA[1],c.getTitulo());
+        cv.put(BDT.COLUMNS_TAREA[2],c.getDescripcion());
+        cv.put(BDT.COLUMNS_TAREA[3],c.getFecha());
+        cv.put(BDT.COLUMNS_TAREA[4],c.getHora());
+        cv.put(BDT.COLUMNS_TAREA[5], c.getFordate());
 
-        return _midb.insert(BDT.TABLE_RECORDATORIO_NAME,null,cv) ;
+        return _midb.insert(BDT.TABLE_TAREA_NAME,null,cv) ;
     }
 
     public long update(Tareas c){
         ContentValues cv = new ContentValues();
 
-        cv.put(BDT.COLUMNS_RECORDATORIO[1],c.getTitulo());
-        cv.put(BDT.COLUMNS_RECORDATORIO[2],c.getDescripcion());
-        cv.put(BDT.COLUMNS_RECORDATORIO[3],c.getFecha());
-        cv.put(BDT.COLUMNS_RECORDATORIO[4],c.getHora());
-        cv.put(BDT.COLUMNS_RECORDATORIO[5], c.getFordate());
+        cv.put(BDT.COLUMNS_TAREA[1],c.getTitulo());
+        cv.put(BDT.COLUMNS_TAREA[2],c.getDescripcion());
+        cv.put(BDT.COLUMNS_TAREA[3],c.getFecha());
+        cv.put(BDT.COLUMNS_TAREA[4],c.getHora());
+        cv.put(BDT.COLUMNS_TAREA[5], c.getFordate());
 
-        return _midb.update(BDT.TABLE_RECORDATORIO_NAME,
+        return _midb.update(BDT.TABLE_TAREA_NAME,
                 cv,
                 "_id=?",
                 new String[] { String.valueOf( c.getId())});

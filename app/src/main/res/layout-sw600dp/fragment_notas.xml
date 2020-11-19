@@ -74,6 +74,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="#3365B3"
+            android:textColor="#FDFDFD"
             android:text="@string/Agregar"
             android:textSize="18sp" />
 
@@ -81,7 +82,8 @@
             android:id="@+id/btnactualizar"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/actionModeSplitBackground"
+            android:background="#3365B3"
+            android:textColor="#FDFDFD"
             android:text="@string/Actualizar"
             android:textSize="18sp" />
     </LinearLayout>

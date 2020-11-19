@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), "Nota Insertado", Toast.LENGTH_SHORT).show();
                     cargardatos();
                 }else{
-                    Toast.makeText(getBaseContext(), "No se pudo Insertar el Nota", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "No se pudo Insertar la Nota", Toast.LENGTH_SHORT).show();
                 }
             }catch (Exception err){
                 Toast.makeText(getBaseContext(),err.getMessage(),Toast.LENGTH_LONG).show();

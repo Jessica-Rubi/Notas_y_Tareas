@@ -43,7 +43,6 @@ public class DatosTareas extends AppCompatActivity implements TareasFragment.OnF
 
             } else if (bundle.getString("operacion").equalsIgnoreCase("1")) {
                 id = bundle.getString("id");
-                //Toast.makeText(getBaseContext(),id,Toast.LENGTH_SHORT).show();
                 titulo.setText(bundle.getString("titulo"));
                 descripcion.setText(bundle.getString("descripcion"));
                 fecha.setText(bundle.getString("fecha"));
@@ -78,6 +77,7 @@ public class DatosTareas extends AppCompatActivity implements TareasFragment.OnF
                 obj.setFecha(fecha.getText().toString());
                 obj.setHora(hora.getText().toString());
                 obj.setFordate(fordate);
+                System.out.println("1: "+obj.getFordate());
 
                 atras.putExtra("mirecordatorio", obj);
                 setResult(RESULT_OK, atras);
@@ -101,6 +101,7 @@ public class DatosTareas extends AppCompatActivity implements TareasFragment.OnF
                 obj.setFecha(fecha.getText().toString());
                 obj.setHora(hora.getText().toString());
                 obj.setFordate(fordate);
+                System.out.println("2: "+obj.getFordate());
 
                 atras.putExtra("mirecordatorio", obj);
                 setResult(RESULT_OK, atras);
