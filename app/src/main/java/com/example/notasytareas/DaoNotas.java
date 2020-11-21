@@ -21,6 +21,7 @@ public class DaoNotas {
     public long insert(Notas c){
         ContentValues cv = new ContentValues();
 
+        cv.put(BDN.COLUMNS_NOTA[0],c.getId());
         cv.put(BDN.COLUMNS_NOTA[1],c.getTitulo());
         cv.put(BDN.COLUMNS_NOTA[2],c.getDescripcion());
 
@@ -52,7 +53,7 @@ public class DaoNotas {
         if (c.moveToFirst()) {
             do {
                 Notas note = new Notas();
-                note.setId(c.getInt(c.getColumnIndex("_id")));
+                note.setId(c.getString(c.getColumnIndex("_id")));
                 note.setTitulo(c.getString(c.getColumnIndex("Titulo")));
                 note.setDescripcion(c.getString(c.getColumnIndex("Descripcion")));
                 studentsArrayList.add(note);

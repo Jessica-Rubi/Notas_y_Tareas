@@ -11,17 +11,17 @@ public class BDN extends SQLiteOpenHelper {
             {"_id","Titulo","Descripcion"};
     public static final String TABLE_NOTA_NAME="nota";
     private  final String TABLE_NOTA = "create table nota ("+
-            COLUMNS_NOTA[0]+" integer primary key autoincrement, "+
+            COLUMNS_NOTA[0]+" varchar(20) primary key, "+
             COLUMNS_NOTA[1]+" varchar(100) null," +
             COLUMNS_NOTA[2]+" text not null);";
 
     public static final String[] COLUMNS_MULTIMEDIA =
-            {"_id","Titulo","Descripcion","Direccion", "Tipo"};
+            {"_id","Titulo","Direccion", "Tipo","IDReference"};
     public static final String TABLE_MULTIMEDIA_NAME="multimedia";
     private  final String TABLE_MULTIMEDIA = "create table multimedia ("+
             COLUMNS_MULTIMEDIA[0]+" integer primary key autoincrement, "+
             COLUMNS_MULTIMEDIA[1]+" varchar(100) null," +
-            COLUMNS_MULTIMEDIA[2]+" text null," +
+            COLUMNS_MULTIMEDIA[2]+" text not null," +
             COLUMNS_MULTIMEDIA[3]+" text not null," +
             COLUMNS_MULTIMEDIA[4]+" text not null);";
 

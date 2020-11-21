@@ -21,7 +21,6 @@
         <activity android:name=".DatosNotas"></activity>
         <activity android:name=".ActivityTareas"></activity>
         <activity android:name=".DatosTareas"></activity>
-        <activity android:name=".Audio"></activity>
     </application>
 
 </manifest>

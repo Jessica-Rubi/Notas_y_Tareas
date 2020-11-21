@@ -12,6 +12,7 @@
     <string name="Fecha">Fecha</string>
     <string name="Hora">Hora</string>
     <string name="Actualizar">Actualizar</string>
+    <string name="Eliminar">Eliminar</string>
     <string name="Tareas">Tareas</string>
     <string name="GrabarA">Grabar Audio</string>
     <string name="ReproducirA">Reproducir Audio</string>

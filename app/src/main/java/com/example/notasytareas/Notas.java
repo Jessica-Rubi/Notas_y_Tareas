@@ -3,19 +3,20 @@ package com.example.notasytareas;
 import java.io.Serializable;
 
 public class Notas implements Serializable {
-    private int id;
+    private String id;
     private String titulo;
     private String descripcion;
 
     public Notas() {
     }
 
-    public Notas(String titulo, String descripcion) {
+    public Notas(String id, String titulo, String descripcion) {
+        this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -27,7 +28,7 @@ public class Notas implements Serializable {
         return descripcion;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

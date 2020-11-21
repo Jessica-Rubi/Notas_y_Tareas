@@ -22,15 +22,16 @@ public class MainActivity extends AppCompatActivity {
     ListView lista;
     EditText txtbuscar;
     Button BotonCambioATareas;
-    String operaciones[] =
-            new String[]
-                    {"Actualizar", "Eliminar"};
+    android.content.res.Resources res;
+    String operaciones[];
     private Notas note;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        res = getResources();
+        operaciones = new String[] {res.getString(R.string.Actualizar), res.getString(R.string.Eliminar)};
         BotonCambioATareas = findViewById(R.id.btnTareas);
         BotonCambioATareas.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,7 +113,9 @@ public class MainActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
 
                                 DaoNotas dao = new DaoNotas(getBaseContext());
+                                DaoMultimedia daoM = new DaoMultimedia(getBaseContext());
                                 if(dao.delete(note.getId()+"")>0){
+                                    daoM.delete(note.getId()+"");
                                     Toast.makeText(getBaseContext(),"Nota Eliminada",Toast.LENGTH_SHORT).show();
                                     cargardatos();
                                 }else{
@@ -146,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
                 Notas objcontacto = (Notas) data.getSerializableExtra("minota");
 
                 DaoNotas dao = new DaoNotas(MainActivity.this);
-                if(dao.insert(new Notas(objcontacto.getTitulo(),objcontacto.getDescripcion()))>0) {
+                if(dao.insert(new Notas(objcontacto.getId(),objcontacto.getTitulo(),objcontacto.getDescripcion()))>0) {
                     Toast.makeText(getBaseContext(), "Nota Insertado", Toast.LENGTH_SHORT).show();
                     cargardatos();
                 }else{

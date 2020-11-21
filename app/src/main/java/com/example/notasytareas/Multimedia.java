@@ -8,16 +8,16 @@ public class Multimedia implements Serializable {
     private String descripcion;
     private String direccion;
     private String tipo;
-    private int idReference;
+    private String idReference;
 
     public Multimedia() {
     }
 
-    public Multimedia(String titulo, String descripcion, String direccion, String tipo) {
+    public Multimedia(String titulo, String direccion, String tipo, String idReference) {
         this.titulo = titulo;
-        this.descripcion = descripcion;
         this.direccion = direccion;
         this.tipo = tipo;
+        this.idReference = idReference;
     }
 
     public int getId() {
@@ -60,16 +60,16 @@ public class Multimedia implements Serializable {
         this.tipo = tipo;
     }
 
-    public int getIdReference() {
+    public String getIdReference() {
         return idReference;
     }
 
-    public void setIdReference(int idReference) {
+    public void setIdReference(String idReference) {
         this.idReference = idReference;
     }
 
     @Override
     public String toString() {
-        return "\nTitulo:" + this.titulo + "\nDescripcion:" + this.descripcion+ "\n";
+        return "\nTitulo:" + this.titulo + "\n";
     }
 }

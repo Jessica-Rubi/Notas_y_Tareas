@@ -18,15 +18,20 @@ public class DaoMultimedia {
         this._midb = new BDN(contexto).getWritableDatabase();
     }
 
-    public long insert(Multimedia c){
+    public long insert(List<Multimedia> c){
         ContentValues cv = new ContentValues();
 
-        cv.put(BDN.COLUMNS_MULTIMEDIA[1],c.getTitulo());
-        cv.put(BDN.COLUMNS_MULTIMEDIA[2],c.getDescripcion());
-        cv.put(BDN.COLUMNS_MULTIMEDIA[3],c.getDireccion());
-        cv.put(BDN.COLUMNS_MULTIMEDIA[4],c.getTipo());
+        for (Multimedia mul: c)
+        {
+            cv.put(BDN.COLUMNS_MULTIMEDIA[1],mul.getTitulo());
+            cv.put(BDN.COLUMNS_MULTIMEDIA[2],mul.getDireccion());
+            System.out.println(mul.getDireccion());
+            cv.put(BDN.COLUMNS_MULTIMEDIA[3],mul.getTipo());
+            cv.put(BDN.COLUMNS_MULTIMEDIA[4],mul.getIdReference());
+            _midb.insert(BDN.TABLE_MULTIMEDIA_NAME,null,cv);
+        }
 
-        return _midb.insert(BDN.TABLE_MULTIMEDIA_NAME,null,cv) ;
+        return 0;
     }
 
     public long update(Multimedia c){
@@ -44,12 +49,12 @@ public class DaoMultimedia {
     }
 
     public int delete(String id){
-        return  _midb.delete("multimedia","_id='"+id+"'",null);
+        return  _midb.delete("multimedia","IDReference='"+id+"'",null);
     }
 
-    public List<Multimedia> getAll() {
+    public List<Multimedia> getAll(String idR) {
         List<Multimedia> studentsArrayList = new ArrayList<Multimedia>();
-        String selectQuery = "SELECT * FROM " + "multimedia";
+        String selectQuery = "SELECT * FROM " + "multimedia" + " WHERE IDReference = '"+ idR +"'";
         Log.d("", selectQuery);
         SQLiteDatabase db = this._midb;
         Cursor c = db.rawQuery(selectQuery, null);
@@ -58,9 +63,9 @@ public class DaoMultimedia {
                 Multimedia sound = new Multimedia();
                 sound.setId(c.getInt(c.getColumnIndex("_id")));
                 sound.setTitulo(c.getString(c.getColumnIndex("Titulo")));
-                sound.setDescripcion(c.getString(c.getColumnIndex("Descripcion")));
                 sound.setDireccion(c.getString(c.getColumnIndex("Direccion")));
                 sound.setTipo(c.getString(c.getColumnIndex("Tipo")));
+                sound.setIdReference(c.getString(c.getColumnIndex("IDReference")));
                 studentsArrayList.add(sound);
             } while (c.moveToNext());
         }
