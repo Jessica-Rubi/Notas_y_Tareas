@@ -14,6 +14,33 @@
         android:weightSum="1"
         tools:ignore="MissingConstraints">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnguardarTarea"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#3365B3"
+                android:text="@string/Agregar"
+                android:textColor="#FDFDFD"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/btnactualizar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#3365B3"
+                android:text="@string/Actualizar"
+                android:textColor="#FDFDFD"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
         <EditText
             android:id="@+id/txttitulo"
             android:layout_width="match_parent"
@@ -25,7 +52,7 @@
         <EditText
             android:id="@+id/txtdescripcion"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="71dp"
             android:layout_weight="0.25"
             android:ems="10"
             android:hint="@string/Descripcion"
@@ -90,21 +117,15 @@
                 android:src="@android:drawable/presence_video_online" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btnguardarTarea"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="#3365B3"
-            android:text="@string/Agregar"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/btnactualizar"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="#3365B3"
-            android:text="@string/Actualizar"
-            android:textSize="18sp" />
+        <ListView
+            android:id="@+id/listaMultimedia"
+            android:layout_width="match_parent"
+            android:layout_height="270dp"
+            android:divider="#06C5DD"
+            android:dividerHeight="0.9dp"
+            android:footerDividersEnabled="false"
+            android:headerDividersEnabled="false"
+            android:scrollbars="horizontal|vertical" />
 
     </LinearLayout>
 

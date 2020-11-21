@@ -8,6 +8,8 @@ import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,13 +18,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,6 +47,8 @@ public class DatosNotas extends AppCompatActivity implements NotasFragment.OnFra
     Button guardar;
     Button actualizar;
     ImageButton audio;
+    ImageButton imagen;
+    ImageButton video;
     ListView lista;
 
     boolean mStartRecording = true;
@@ -58,6 +64,8 @@ public class DatosNotas extends AppCompatActivity implements NotasFragment.OnFra
 
     private String id = "";
     private Multimedia Mulsaiv;
+    private String imageFileName;
+    private String videoFileName;
     int position;
     int b;
     String operaciones[] =
@@ -66,6 +74,9 @@ public class DatosNotas extends AppCompatActivity implements NotasFragment.OnFra
     String operacionesv2[] =
             new String[]
                     {"Detener"};
+    String operacionesv3[] =
+            new String[]
+                    {"Ver", "Eliminar"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,9 +85,10 @@ public class DatosNotas extends AppCompatActivity implements NotasFragment.OnFra
         insertar();
         actualizar();
         grabar();
+        tomarImg();
+        tomarVid();
         try {
             Bundle bundle = getIntent().getExtras();
-
             if (bundle.getString("operacion").equalsIgnoreCase("0")) {
                 actualizar.setVisibility(View.INVISIBLE);
                 b = 0;
@@ -138,9 +150,6 @@ public class DatosNotas extends AppCompatActivity implements NotasFragment.OnFra
                         Mul.setIdReference(idTimeStamp);
                         listMuls.add(Mul);
                     }
-                    for (int j = 0; j < listMuls.size(); j++){
-                        System.out.println("die "+listMuls.get(j).getDireccion());
-                    }
                     reg.insert(listMuls);
                 }
 
@@ -170,9 +179,9 @@ public class DatosNotas extends AppCompatActivity implements NotasFragment.OnFra
                 System.out.println(arcMulAc.size());
                 if(arcMulAc.size() != 0){
                     List<Multimedia> listMul = new ArrayList<Multimedia>();
-                    Multimedia Mul = new Multimedia();
                     DaoMultimedia reg = new DaoMultimedia(DatosNotas.this);
                     for (int i = 0; i < arcMulAc.size(); i++){
+                        Multimedia Mul = new Multimedia();
                         Mul.setTitulo(arcMulAc.get(i).getTitulo());
                         Mul.setDireccion(arcMulAc.get(i).getDireccion());
                         Mul.setTipo(arcMulAc.get(i).getTipo());
@@ -219,6 +228,26 @@ public class DatosNotas extends AppCompatActivity implements NotasFragment.OnFra
         });
     }
 
+    public void tomarImg(){
+        imagen = (ImageButton) findViewById(R.id.imageBtnimagenNota);
+        imagen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dispatchTakePictureIntentFotoOriginal();
+            }
+        });
+    }
+
+    public void tomarVid(){
+        video = (ImageButton) findViewById(R.id.imageBtnVideoNota);
+        video.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dispatchTakeVideoIntent();
+            }
+        });
+    }
+
     ArrayAdapter<Multimedia> adp;
     public void cargardatos(){
         try {
@@ -227,7 +256,6 @@ public class DatosNotas extends AppCompatActivity implements NotasFragment.OnFra
                         android.R.layout.simple_list_item_1,arcMul);
                 lista.setAdapter(adp);
             } else if (b == 1) {
-                DaoMultimedia dao = new DaoMultimedia(DatosNotas.this);
                 adp = new ArrayAdapter<Multimedia>(DatosNotas.this,
                         android.R.layout.simple_list_item_1,arcMulAc);
                 lista.setAdapter(adp);
@@ -236,31 +264,75 @@ public class DatosNotas extends AppCompatActivity implements NotasFragment.OnFra
     }
 
     public void  btnList_click(){
-        AlertDialog dialog =
-                new AlertDialog.Builder(this)
-                        .setTitle("Operacion a Realizar")
-                        .setIcon(R.mipmap.ic_launcher)
-                        .setItems(operaciones, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if(operaciones[which].equalsIgnoreCase(operaciones[0])){
-                                    fileName = Mulsaiv.getDireccion();
-                                    onPlay(mStartPlaying);
-                                    if (mStartPlaying) {
+        if(Mulsaiv.getTipo().equals("audio")){
+            AlertDialog dialog =
+                    new AlertDialog.Builder(this)
+                            .setTitle("Operacion a Realizar")
+                            .setIcon(R.mipmap.ic_launcher)
+                            .setItems(operaciones, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    if(operaciones[which].equalsIgnoreCase(operaciones[0])){
+                                        fileName = Mulsaiv.getDireccion();
+                                        onPlay(mStartPlaying);
+                                        if (mStartPlaying) {
 //                                        playButton.setText("Detener Reproducción");
-                                    } else {
+                                        } else {
 //                                        playButton.setText("Reproducir Audio");
+                                        }
+                                        mStartPlaying = !mStartPlaying;
                                     }
-                                    mStartPlaying = !mStartPlaying;
+                                    if(operaciones[which].equalsIgnoreCase(operaciones[1])){
+                                        confirmacion();
+                                    }
+                                    dialog.dismiss();
                                 }
-                                if(operaciones[which].equalsIgnoreCase(operaciones[1])){
-                                    confirmacion();
+                            })
+                            .create();
+            dialog.show();
+        }else if(Mulsaiv.getTipo().equals("imagen")){
+            AlertDialog dialog =
+                    new AlertDialog.Builder(this)
+                            .setTitle("Operacion a Realizar")
+                            .setIcon(R.mipmap.ic_launcher)
+                            .setItems(operacionesv3, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    if(operacionesv3[which].equalsIgnoreCase(operacionesv3[0])){
+                                        Intent intentImg = new Intent(DatosNotas.this, Imagen.class);
+                                        intentImg.putExtra("urlImg", Mulsaiv.getDireccion());
+                                        startActivity(intentImg);
+                                    }
+                                    if(operacionesv3[which].equalsIgnoreCase(operacionesv3[1])){
+                                        confirmacion();
+                                    }
+                                    dialog.dismiss();
                                 }
-                                dialog.dismiss();
-                            }
-                        })
-                        .create();
-        dialog.show();
+                            })
+                            .create();
+            dialog.show();
+        }else if (Mulsaiv.getTipo().equals("video")){
+            AlertDialog dialog =
+                    new AlertDialog.Builder(this)
+                            .setTitle("Operacion a Realizar")
+                            .setIcon(R.mipmap.ic_launcher)
+                            .setItems(operacionesv3, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    if(operacionesv3[which].equalsIgnoreCase(operacionesv3[0])){
+                                        Intent intentVid = new Intent(DatosNotas.this, Video.class);
+                                        intentVid.putExtra("urlVid", Mulsaiv.getDireccion());
+                                        startActivity(intentVid);
+                                    }
+                                    if(operacionesv3[which].equalsIgnoreCase(operacionesv3[1])){
+                                        confirmacion();
+                                    }
+                                    dialog.dismiss();
+                                }
+                            })
+                            .create();
+            dialog.show();
+        }
     }
 
     public void confirmacion(){
@@ -288,6 +360,101 @@ public class DatosNotas extends AppCompatActivity implements NotasFragment.OnFra
                         })
                         .create();
         dialog.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK){
+            Multimedia obj = new Multimedia();
+            obj.setTitulo(imageFileName);
+            obj.setDireccion(photoURI.toString());
+            obj.setTipo("imagen");
+            arcMul.add(obj);
+            arcMulAc.add(obj);
+            cargardatos();
+        }
+        if(requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK){
+            Multimedia obj = new Multimedia();
+            obj.setTitulo(videoFileName);
+            obj.setDireccion(videoURI.toString());
+            obj.setTipo("video");
+            arcMul.add(obj);
+            arcMulAc.add(obj);
+            cargardatos();
+        }
+    }
+
+    String currentPhotoPath;
+
+    private File createImageFile() throws IOException {
+        String timeStampI = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        imageFileName = "JPEG_" + timeStampI + "_";
+        File storageDir = DatosNotas.this.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+        currentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
+    static final int REQUEST_TAKE_PHOTO = 2;
+    Uri photoURI;
+
+    private void dispatchTakePictureIntentFotoOriginal() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(DatosNotas.this.getPackageManager()) != null) {
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+            }
+            if (photoFile != null) {
+                photoURI = FileProvider.getUriForFile(DatosNotas.this,
+                        "com.example.notasytareas.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+            }
+        }
+    }
+
+    String currentVideoPath;
+
+    private File createVideoFile() throws IOException {
+        String timeStampV = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        videoFileName = "MP4_" + timeStampV + "_";
+        File storageDir = DatosNotas.this.getExternalFilesDir(Environment.DIRECTORY_MOVIES);
+        File image = File.createTempFile(
+                videoFileName,  /* prefix */
+                ".mp4",         /* suffix */
+                storageDir      /* directory */
+        );
+        currentVideoPath = image.getAbsolutePath();
+        return image;
+    }
+
+    static final int REQUEST_VIDEO_CAPTURE = 1;
+    Uri videoURI;
+
+    private void dispatchTakeVideoIntent() {
+        Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        if (takeVideoIntent.resolveActivity(DatosNotas.this.getPackageManager()) != null) {
+            File videoFile = null;
+            try {
+                videoFile = createVideoFile();
+            } catch (IOException ex) {
+            }
+            if (videoFile != null) {
+                videoURI = FileProvider.getUriForFile(DatosNotas.this,
+                        "com.example.notasytareas.fileprovider",
+                        videoFile);
+                takeVideoIntent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, videoURI);
+                startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
+            }
+        }
     }
 
     @Override

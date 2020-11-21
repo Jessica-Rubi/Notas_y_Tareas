@@ -25,7 +25,6 @@ public class DaoMultimedia {
         {
             cv.put(BDN.COLUMNS_MULTIMEDIA[1],mul.getTitulo());
             cv.put(BDN.COLUMNS_MULTIMEDIA[2],mul.getDireccion());
-            System.out.println(mul.getDireccion());
             cv.put(BDN.COLUMNS_MULTIMEDIA[3],mul.getTipo());
             cv.put(BDN.COLUMNS_MULTIMEDIA[4],mul.getIdReference());
             _midb.insert(BDN.TABLE_MULTIMEDIA_NAME,null,cv);

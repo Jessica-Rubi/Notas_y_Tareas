@@ -155,7 +155,7 @@ public class ActivityTareas extends AppCompatActivity {
                 Tareas objcontacto = (Tareas) data.getSerializableExtra("mirecordatorio");
 
                 DaoTareas dao = new DaoTareas(ActivityTareas.this);
-                if (dao.insert(new Tareas(objcontacto.getTitulo(), objcontacto.getDescripcion(), objcontacto.getFecha(), objcontacto.getHora(), objcontacto.getFordate())) > 0) {
+                if (dao.insert(new Tareas(objcontacto.getId(), objcontacto.getTitulo(), objcontacto.getDescripcion(), objcontacto.getFecha(), objcontacto.getHora(), objcontacto.getFordate())) > 0) {
                     Toast.makeText(getBaseContext(), "Tarea Insertado", Toast.LENGTH_SHORT).show();
                     cargardatos();
                 } else {
