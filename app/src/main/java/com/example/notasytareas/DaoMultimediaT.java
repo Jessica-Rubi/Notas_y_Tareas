@@ -9,13 +9,13 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DaoMultimedia {
+public class DaoMultimediaT {
     private Context _contexto;
     private SQLiteDatabase _midb;
 
-    public DaoMultimedia(Context contexto){
+    public DaoMultimediaT(Context contexto){
         this._contexto = contexto;
-        this._midb = new BDN(contexto).getWritableDatabase();
+        this._midb = new BDT(contexto).getWritableDatabase();
     }
 
     public long insert(List<Multimedia> c){
@@ -23,11 +23,11 @@ public class DaoMultimedia {
 
         for (Multimedia mul: c)
         {
-            cv.put(BDN.COLUMNS_MULTIMEDIA[1],mul.getTitulo());
-            cv.put(BDN.COLUMNS_MULTIMEDIA[2],mul.getDireccion());
-            cv.put(BDN.COLUMNS_MULTIMEDIA[3],mul.getTipo());
-            cv.put(BDN.COLUMNS_MULTIMEDIA[4],mul.getIdReference());
-            _midb.insert(BDN.TABLE_MULTIMEDIA_NAME,null,cv);
+            cv.put(BDT.COLUMNS_MULTIMEDIA[1],mul.getTitulo());
+            cv.put(BDT.COLUMNS_MULTIMEDIA[2],mul.getDireccion());
+            cv.put(BDT.COLUMNS_MULTIMEDIA[3],mul.getTipo());
+            cv.put(BDT.COLUMNS_MULTIMEDIA[4],mul.getIdReference());
+            _midb.insert(BDT.TABLE_MULTIMEDIA_NAME,null,cv);
         }
 
         return 0;
@@ -36,12 +36,12 @@ public class DaoMultimedia {
     public long update(Multimedia c){
         ContentValues cv = new ContentValues();
 
-        cv.put(BDN.COLUMNS_MULTIMEDIA[1],c.getTitulo());
-        cv.put(BDN.COLUMNS_MULTIMEDIA[2],c.getDescripcion());
-        cv.put(BDN.COLUMNS_MULTIMEDIA[3],c.getDireccion());
-        cv.put(BDN.COLUMNS_MULTIMEDIA[4],c.getTipo());
+        cv.put(BDT.COLUMNS_MULTIMEDIA[1],c.getTitulo());
+        cv.put(BDT.COLUMNS_MULTIMEDIA[2],c.getDescripcion());
+        cv.put(BDT.COLUMNS_MULTIMEDIA[3],c.getDireccion());
+        cv.put(BDT.COLUMNS_MULTIMEDIA[4],c.getTipo());
 
-        return _midb.update(BDN.TABLE_MULTIMEDIA_NAME,
+        return _midb.update(BDT.TABLE_MULTIMEDIA_NAME,
                 cv,
                 "_id=?",
                 new String[] { String.valueOf( c.getId())});

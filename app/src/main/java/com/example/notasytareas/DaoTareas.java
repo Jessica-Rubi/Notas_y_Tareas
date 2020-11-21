@@ -21,6 +21,7 @@ public class DaoTareas {
     public long insert(Tareas c){
         ContentValues cv = new ContentValues();
 
+        cv.put(BDT.COLUMNS_TAREA[0],c.getId());
         cv.put(BDT.COLUMNS_TAREA[1],c.getTitulo());
         cv.put(BDT.COLUMNS_TAREA[2],c.getDescripcion());
         cv.put(BDT.COLUMNS_TAREA[3],c.getFecha());
@@ -58,7 +59,7 @@ public class DaoTareas {
         if (c.moveToFirst()) {
             do {
                 Tareas tarea = new Tareas();
-                tarea.setId(c.getInt(c.getColumnIndex("_id")));
+                tarea.setId(c.getString(c.getColumnIndex("_id")));
                 tarea.setTitulo(c.getString(c.getColumnIndex("Titulo")));
                 tarea.setDescripcion(c.getString(c.getColumnIndex("Descripcion")));
                 tarea.setFecha(c.getString(c.getColumnIndex("Fecha")));

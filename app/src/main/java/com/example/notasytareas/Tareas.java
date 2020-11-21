@@ -3,7 +3,7 @@ package com.example.notasytareas;
 import java.io.Serializable;
 
 public class Tareas implements Serializable {
-    private int id;
+    private String id;
     private String titulo;
     private String descripcion;
     private String fecha;
@@ -12,7 +12,8 @@ public class Tareas implements Serializable {
 
     public Tareas(){};
 
-    public Tareas(String titulo, String descripcion, String fecha, String hora, String fordate) {
+    public Tareas(String id, String titulo, String descripcion, String fecha, String hora, String fordate) {
+        this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.fecha = fecha;
@@ -20,7 +21,7 @@ public class Tareas implements Serializable {
         this.fordate = fordate;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -48,7 +49,7 @@ public class Tareas implements Serializable {
         this.fordate = fordate;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
