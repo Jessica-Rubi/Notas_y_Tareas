@@ -9,7 +9,7 @@ public class BDT extends SQLiteOpenHelper {
     private static final int DB_VERSION = 1;
     public static final String[]COLUMNS_TAREA =
             {"_id","Titulo","Descripcion",
-                    "Fecha","Hora","FormatoFecha"};
+                    "Fecha","Hora","FormatoFecha","Completado"};
     public static final String TABLE_TAREA_NAME="recordatorio";
     private  final String TABLE_TAREA = "create table recordatorio ("+
             COLUMNS_TAREA[0]+" varchar(20) primary key, "+
@@ -17,7 +17,8 @@ public class BDT extends SQLiteOpenHelper {
             COLUMNS_TAREA[2]+" text not null,"+
             COLUMNS_TAREA[3]+" varchar(25) null,"+
             COLUMNS_TAREA[4]+" varchar(10) null,"+
-            COLUMNS_TAREA[5]+" varchar(25) null);";
+            COLUMNS_TAREA[5]+" varchar(25) null,"+
+            COLUMNS_TAREA[6]+" varchar(25) null);";
 
     public static final String[] COLUMNS_MULTIMEDIA =
             {"_id","Titulo","Direccion", "Tipo","IDReference"};

@@ -7,7 +7,7 @@
     <string name="Agregar">Agregar</string>
     <string name="BuscarT">Buscar Tarea</string>
     <string name="BuscarN">Buscar Nota</string>
-    <string name="Titulo">Titulo</string>
+    <string name="Titulo">Título</string>
     <string name="Descripcion">Descripción</string>
     <string name="Fecha">Fecha</string>
     <string name="Hora">Hora</string>
@@ -16,4 +16,23 @@
     <string name="Tareas">Tareas</string>
     <string name="GrabarA">Grabar Audio</string>
     <string name="ReproducirA">Reproducir Audio</string>
+    <string name="Operacion">Operación a Realizar</string>
+    <string name="Seguro">¿Estas Seguro de Eliminar?</string>
+    <string name="Recuperar">Si elimina este registro no se podrá recuperar</string>
+    <string name="Aceptar">Aceptar</string>
+    <string name="Cancelar">Cancelar</string>
+    <string name="NotaE">Nota Eliminada</string>
+    <string name="NotaNoE">Nota no eliminada</string>
+    <string name="NotaI">Nota Insertada</string>
+    <string name="NotaNoI">No se pudo Insertar la Nota</string>
+    <string name="NotaA">Nota Actualizada</string>
+    <string name="NotaNoA">No se pudo Actualizar la Nota</string>
+    <string name="Marcar">Marcar como Completada</string>
+    <string name="Desmarcar">Desmarcar</string>
+    <string name="TareaE">Tarea Eliminada</string>
+    <string name="TareaNoE">Tarea no Eliminada</string>
+    <string name="TareaI">Tarea Insertada</string>
+    <string name="TareaNoI">No se pudo Insertar la Tarea</string>
+    <string name="TareaA">Tarea Actualizada</string>
+    <string name="TareaNoA">No se pudo Actualizar la Tarea</string>
 </resources>

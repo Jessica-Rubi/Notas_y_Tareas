@@ -72,9 +72,11 @@ public class DatosTareas extends AppCompatActivity implements TareasFragment.OnF
     private  int dia,mes,year,h,minutos;
     private String id = "";
     String fordate = "";
+    String comp;
     private Multimedia Mulsaiv;
     private String imageFileName;
     private String videoFileName;
+    ListaAdapter adapter;
     int position;
     int b;
     String operaciones[] =
@@ -108,6 +110,7 @@ public class DatosTareas extends AppCompatActivity implements TareasFragment.OnF
                 descripcion.setText(bundle.getString("descripcion"));
                 fecha.setText(bundle.getString("fecha"));
                 hora.setText(bundle.getString("hora"));
+                comp = bundle.getString("completa");
                 b = 1;
                 arcMulAc = new DaoMultimediaT(DatosTareas.this).getAll(id);
                 listMul = new DaoMultimediaT(DatosTareas.this).getAll(id);
@@ -160,6 +163,7 @@ public class DatosTareas extends AppCompatActivity implements TareasFragment.OnF
                 obj.setFecha(fecha.getText().toString());
                 obj.setHora(hora.getText().toString());
                 obj.setFordate(fordate);
+                obj.setCompletado("no");
                 System.out.println("1: "+obj.getFordate());
 
                 if(arcMul.size() != 0){
@@ -196,6 +200,7 @@ public class DatosTareas extends AppCompatActivity implements TareasFragment.OnF
                 obj.setFecha(fecha.getText().toString());
                 obj.setHora(hora.getText().toString());
                 obj.setFordate(fordate);
+                obj.setCompletado(comp);
                 System.out.println("2: "+obj.getFordate());
 
                 if(listMul.size() != 0 && arcMulAc.size() == 0){
@@ -275,16 +280,51 @@ public class DatosTareas extends AppCompatActivity implements TareasFragment.OnF
     }
 
     ArrayAdapter<Multimedia> adp;
+    int[] imagenes = {
+            android.R.drawable.presence_video_online,
+            android.R.drawable.ic_menu_camera,
+            android.R.drawable.ic_input_get,
+            android.R.drawable.presence_audio_away
+    };
+
     public void cargardatos(){
         try {
+            String[] titulos;
+            int[] listImagenes;
             if (b == 0) {
+                titulos = new String[arcMul.size()];
+                listImagenes = new int[arcMul.size()];
+                for (int k = 0; k < arcMul.size(); k++){
+                    titulos[k] = arcMul.get(k).getTitulo();
+                    if(arcMul.get(k).getTipo().equals("audio")){
+                        listImagenes[k] = imagenes[3];
+                    }else if(arcMul.get(k).getTipo().equals("imagen")){
+                        listImagenes[k] = imagenes[1];
+                    }else if(arcMul.get(k).getTipo().equals("video")){
+                        listImagenes[k] = imagenes[0];
+                    }
+                }
+                adapter = new ListaAdapter(this, titulos, listImagenes);
                 adp = new ArrayAdapter<Multimedia>(DatosTareas.this,
                         android.R.layout.simple_list_item_1,arcMul);
-                lista.setAdapter(adp);
+                lista.setAdapter(adapter);
             } else if (b == 1) {
+                titulos = new String[arcMulAc.size()];
+                listImagenes = new int[arcMulAc.size()];
+                for (int k = 0; k < arcMulAc.size(); k++){
+                    titulos[k] = arcMulAc.get(k).getTitulo();
+                    if(arcMulAc.get(k).getTipo().equals("audio")){
+                        listImagenes[k] = imagenes[3];
+                    }else if(arcMulAc.get(k).getTipo().equals("imagen")){
+                        listImagenes[k] = imagenes[1];
+                    }else if(arcMulAc.get(k).getTipo().equals("video")){
+                        listImagenes[k] = imagenes[0];
+                    }
+                }
+                adapter = new ListaAdapter(this, titulos, listImagenes);
                 adp = new ArrayAdapter<Multimedia>(DatosTareas.this,
                         android.R.layout.simple_list_item_1,arcMulAc);
-                lista.setAdapter(adp);
+                lista.setAdapter(adapter);
             }
         }catch (Exception err){}
     }

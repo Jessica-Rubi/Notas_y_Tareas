@@ -2,6 +2,7 @@ package com.example.notasytareas;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -22,17 +23,22 @@ public class ActivityTareas extends AppCompatActivity {
     ListView lista;
     EditText txtbuscar;
     Button BotonCambioANotas;
+    android.content.res.Resources res;
 
-    String operaciones[] =
-            new String[]
-                    {"Actualizar", "Eliminar", "Marcar como Completada"};
+    String operaciones[];
+    String operacionesv2[];
 
     private Tareas tarea;
+    ListaAdapterT adapter;
+    int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_tareas);
+        res = getResources();
+        operaciones = new String[] {res.getString(R.string.Actualizar), res.getString(R.string.Eliminar), res.getString(R.string.Marcar)};
+        operacionesv2 = new String[] {res.getString(R.string.Actualizar), res.getString(R.string.Eliminar), res.getString(R.string.Desmarcar)};
         BotonCambioANotas = findViewById(R.id.btnNotas);
         txtbuscar = (EditText) findViewById(R.id.txtbuscarTarea);
         lista = (ListView) findViewById(R.id.listaTareas);
@@ -47,6 +53,8 @@ public class ActivityTareas extends AppCompatActivity {
                 tarea.setFecha(adp.getItem(i).getFecha());
                 tarea.setHora(adp.getItem(i).getHora());
                 tarea.setFordate(adp.getItem(i).getFordate());
+                tarea.setCompletado(adp.getItem(i).getCompletado());
+                position = i;
 
                 btnList_click();
                 return false;
@@ -80,55 +88,97 @@ public class ActivityTareas extends AppCompatActivity {
     }
 
     public void btnList_click() {
-        AlertDialog dialog =
-                new AlertDialog.Builder(this)
-                        .setTitle("Operacion a Realizar")
-                        .setIcon(R.mipmap.ic_launcher)
-                        .setItems(operaciones, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
+        if(tarea.getCompletado().equals("no")){
+            AlertDialog dialog =
+                    new AlertDialog.Builder(this)
+                            .setTitle(res.getString(R.string.Operacion))
+                            .setIcon(R.mipmap.ic_launcher)
+                            .setItems(operaciones, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
 
-                                if (operaciones[which].equalsIgnoreCase(operaciones[0])) {
-                                    Intent siguiente = new Intent(getApplication(), DatosTareas.class);
+                                    if (operaciones[which].equalsIgnoreCase(operaciones[0])) {
+                                        Intent siguiente = new Intent(getApplication(), DatosTareas.class);
 
-                                    siguiente.putExtra("operacion", "1");
-                                    siguiente.putExtra("id", tarea.getId() + "");
-                                    siguiente.putExtra("titulo", tarea.getTitulo());
-                                    siguiente.putExtra("descripcion", tarea.getDescripcion());
-                                    siguiente.putExtra("fecha", tarea.getFecha());
-                                    siguiente.putExtra("hora", tarea.getHora());
-                                    startActivityForResult(siguiente, 1001);
+                                        siguiente.putExtra("operacion", "1");
+                                        siguiente.putExtra("id", tarea.getId() + "");
+                                        siguiente.putExtra("titulo", tarea.getTitulo());
+                                        siguiente.putExtra("descripcion", tarea.getDescripcion());
+                                        siguiente.putExtra("fecha", tarea.getFecha());
+                                        siguiente.putExtra("hora", tarea.getHora());
+                                        siguiente.putExtra("completa", tarea.getCompletado());
+                                        startActivityForResult(siguiente, 1001);
+                                    }
+                                    if (operaciones[which].equalsIgnoreCase(operaciones[1])) {
+                                        confirmacion();
+                                    }
+                                    if (operaciones[which].equalsIgnoreCase(operaciones[2])) {
+                                        DaoTareas dt = new DaoTareas(ActivityTareas.this);
+                                        dt.updateC(tarea.getId(), "si");
+                                        cargardatos();
+                                    }
+                                    dialog.dismiss();
                                 }
-                                if (operaciones[which].equalsIgnoreCase(operaciones[1])) {
-                                    confirmacion();
+                            })
+                            .create();
+            dialog.show();
+        }else {
+            AlertDialog dialog =
+                    new AlertDialog.Builder(this)
+                            .setTitle(res.getString(R.string.Operacion))
+                            .setIcon(R.mipmap.ic_launcher)
+                            .setItems(operacionesv2, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    if (operacionesv2[which].equalsIgnoreCase(operacionesv2[0])) {
+                                        Intent siguiente = new Intent(getApplication(), DatosTareas.class);
+
+                                        siguiente.putExtra("operacion", "1");
+                                        siguiente.putExtra("id", tarea.getId() + "");
+                                        siguiente.putExtra("titulo", tarea.getTitulo());
+                                        siguiente.putExtra("descripcion", tarea.getDescripcion());
+                                        siguiente.putExtra("fecha", tarea.getFecha());
+                                        siguiente.putExtra("hora", tarea.getHora());
+                                        siguiente.putExtra("completa", tarea.getCompletado());
+                                        startActivityForResult(siguiente, 1001);
+                                    }
+                                    if (operacionesv2[which].equalsIgnoreCase(operacionesv2[1])) {
+                                        confirmacion();
+                                    }
+                                    if (operacionesv2[which].equalsIgnoreCase(operacionesv2[2])) {
+                                        DaoTareas dt = new DaoTareas(ActivityTareas.this);
+                                        dt.updateC(tarea.getId(), "no");
+                                        cargardatos();
+                                    }
+                                    dialog.dismiss();
                                 }
-                                dialog.dismiss();
-                            }
-                        })
-                        .create();
-        dialog.show();
+                            })
+                            .create();
+            dialog.show();
+        }
     }
 
     public void confirmacion() {
         AlertDialog dialog =
                 new AlertDialog.Builder(this)
-                        .setTitle("Esta Seguro de Eliminar")
+                        .setTitle(res.getString(R.string.Seguro))
                         .setIcon(android.R.drawable.ic_delete)
-                        .setMessage("Si elimina este registro no se podra recuperar")
-                        .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                        .setMessage(res.getString(R.string.Recuperar))
+                        .setPositiveButton(res.getString(R.string.Aceptar), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
                                 DaoTareas dao = new DaoTareas(getBaseContext());
                                 if (dao.delete(tarea.getId() + "") > 0) {
-                                    Toast.makeText(getBaseContext(), "Tarea Eliminada", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getBaseContext(), res.getString(R.string.TareaE), Toast.LENGTH_SHORT).show();
                                     cargardatos();
                                 } else {
-                                    Toast.makeText(getBaseContext(), "Tarea no Eliminada", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getBaseContext(), res.getString(R.string.TareaNoE), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         })
-                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(res.getString(R.string.Cancelar), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
@@ -139,12 +189,31 @@ public class ActivityTareas extends AppCompatActivity {
     }
 
     ArrayAdapter<Tareas> adp;
+    int[] imagenes = {
+            android.R.drawable.checkbox_off_background,
+            android.R.drawable.checkbox_on_background
+    };
 
     public void cargardatos() {
         DaoTareas dao = new DaoTareas(ActivityTareas.this);
+        String[] titulos = new String[dao.getAll().size()];
+        int[] listImagenes = new int[dao.getAll().size()];
+        for (int k = 0; k < dao.getAll().size(); k++){
+            titulos[k] = "Título: " + dao.getAll().get(k).getTitulo() +
+            "\nDescripción: "+ dao.getAll().get(k).getDescripcion() +
+                    "\nFecha: "+ dao.getAll().get(k).getFecha() +
+                    "\nHora: "+ dao.getAll().get(k).getHora() +
+                    "\n";
+            if(dao.getAll().get(k).getCompletado().equals("si")){
+                listImagenes[k] = imagenes[1];
+            }else {
+                listImagenes[k] = imagenes[0];
+            }
+        }
+        adapter = new ListaAdapterT(this, titulos, listImagenes);
         adp = new ArrayAdapter<Tareas>(ActivityTareas.this,
                 android.R.layout.simple_list_item_1, dao.getAll());
-        lista.setAdapter(adp);
+        lista.setAdapter(adapter);
     }
 
     @Override
@@ -155,11 +224,11 @@ public class ActivityTareas extends AppCompatActivity {
                 Tareas objcontacto = (Tareas) data.getSerializableExtra("mirecordatorio");
 
                 DaoTareas dao = new DaoTareas(ActivityTareas.this);
-                if (dao.insert(new Tareas(objcontacto.getId(), objcontacto.getTitulo(), objcontacto.getDescripcion(), objcontacto.getFecha(), objcontacto.getHora(), objcontacto.getFordate())) > 0) {
-                    Toast.makeText(getBaseContext(), "Tarea Insertado", Toast.LENGTH_SHORT).show();
+                if (dao.insert(new Tareas(objcontacto.getId(), objcontacto.getTitulo(), objcontacto.getDescripcion(), objcontacto.getFecha(), objcontacto.getHora(), objcontacto.getFordate(), objcontacto.getCompletado())) > 0) {
+                    Toast.makeText(getBaseContext(), res.getString(R.string.TareaI), Toast.LENGTH_SHORT).show();
                     cargardatos();
                 } else {
-                    Toast.makeText(getBaseContext(), "No se pudo Insertar la Tarea", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), res.getString(R.string.TareaNoI), Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception err) {
                 Toast.makeText(getBaseContext(), err.getMessage(), Toast.LENGTH_LONG).show();
@@ -178,10 +247,10 @@ public class ActivityTareas extends AppCompatActivity {
                 cargardatos();
 
                 if (dao.update(recordatorio) > 0) {
-                    Toast.makeText(getBaseContext(), "Tarea Actualizada", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), res.getString(R.string.TareaA), Toast.LENGTH_SHORT).show();
                     cargardatos();
                 } else {
-                    Toast.makeText(getBaseContext(), "No se pudo Actualizar la Tarea", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), res.getString(R.string.TareaNoA), Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception err) {
                 Toast.makeText(getBaseContext(), err.getMessage(), Toast.LENGTH_LONG).show();

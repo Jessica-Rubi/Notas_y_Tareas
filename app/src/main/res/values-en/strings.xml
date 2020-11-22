@@ -16,4 +16,23 @@
     <string name="Tareas">Homework</string>
     <string name="GrabarA">Record Audio</string>
     <string name="ReproducirA">Play Audio</string>
+    <string name="Operacion">Operation to Perform</string>
+    <string name="Seguro">Are you sure to delete?</string>
+    <string name="Recuperar">If you delete this record, it cannot be recovered</string>
+    <string name="Aceptar">Ok</string>
+    <string name="Cancelar">Cancel</string>
+    <string name="NotaE">Note removed</string>
+    <string name="NotaNoE">Nota no eliminada</string>
+    <string name="NotaI">Inserted Note</string>
+    <string name="NotaNoI">Note could not be inserted</string>
+    <string name="NotaA">Updated Note</string>
+    <string name="NotaNoA">Could not Update Note</string>
+    <string name="Marcar">Mark Completed</string>
+    <string name="Desmarcar">Unmark</string>
+    <string name="TareaE">Task Deleted</string>
+    <string name="TareaNoE">Task Not Deleted</string>
+    <string name="TareaI">Insert Task</string>
+    <string name="TareaNoI">Task could not be inserted</string>
+    <string name="TareaA">Updated Task</string>
+    <string name="TareaNoA">Could not Update Task</string>
 </resources>

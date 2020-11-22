@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
     public void  btnList_click(){
         AlertDialog dialog =
                 new AlertDialog.Builder(this)
-                        .setTitle("Operacion a Realizar")
+                        .setTitle(res.getString(R.string.Operacion))
                         .setIcon(R.mipmap.ic_launcher)
                         .setItems(operaciones, new DialogInterface.OnClickListener() {
                             @Override
@@ -105,10 +105,10 @@ public class MainActivity extends AppCompatActivity {
     public void confirmacion(){
         AlertDialog dialog =
                 new AlertDialog.Builder(this)
-                        .setTitle("Esta Seguro de Eliminar")
+                        .setTitle(res.getString(R.string.Seguro))
                         .setIcon(android.R.drawable.ic_delete)
-                        .setMessage("Si elimina este registro no se podra recuperar")
-                        .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                        .setMessage(res.getString(R.string.Recuperar))
+                        .setPositiveButton(res.getString(R.string.Aceptar), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
@@ -116,14 +116,14 @@ public class MainActivity extends AppCompatActivity {
                                 DaoMultimedia daoM = new DaoMultimedia(getBaseContext());
                                 if(dao.delete(note.getId()+"")>0){
                                     daoM.delete(note.getId()+"");
-                                    Toast.makeText(getBaseContext(),"Nota Eliminada",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getBaseContext(),res.getString(R.string.NotaE),Toast.LENGTH_SHORT).show();
                                     cargardatos();
                                 }else{
-                                    Toast.makeText(getBaseContext(),"Nota no eliminada",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getBaseContext(),res.getString(R.string.NotaNoE),Toast.LENGTH_SHORT).show();
                                 }
                             }
                         })
-                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(res.getString(R.string.Cancelar), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
@@ -150,10 +150,10 @@ public class MainActivity extends AppCompatActivity {
 
                 DaoNotas dao = new DaoNotas(MainActivity.this);
                 if(dao.insert(new Notas(objcontacto.getId(),objcontacto.getTitulo(),objcontacto.getDescripcion()))>0) {
-                    Toast.makeText(getBaseContext(), "Nota Insertado", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), res.getString(R.string.NotaI), Toast.LENGTH_SHORT).show();
                     cargardatos();
                 }else{
-                    Toast.makeText(getBaseContext(), "No se pudo Insertar la Nota", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), res.getString(R.string.NotaNoI), Toast.LENGTH_SHORT).show();
                 }
             }catch (Exception err){
                 Toast.makeText(getBaseContext(),err.getMessage(),Toast.LENGTH_LONG).show();
@@ -170,10 +170,10 @@ public class MainActivity extends AppCompatActivity {
                 cargardatos();
 
                 if(dao.update(note)>0) {
-                    Toast.makeText(getBaseContext(), "Nota Actualizada", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), res.getString(R.string.NotaA), Toast.LENGTH_SHORT).show();
                     cargardatos();
                 }else{
-                    Toast.makeText(getBaseContext(), "No se pudo Actualizar la Nota", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), res.getString(R.string.NotaNoA), Toast.LENGTH_SHORT).show();
                 }
             }catch (Exception err){
                 Toast.makeText(getBaseContext(),err.getMessage(),Toast.LENGTH_LONG).show();

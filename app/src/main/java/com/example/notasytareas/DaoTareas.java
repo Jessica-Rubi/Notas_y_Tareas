@@ -27,6 +27,7 @@ public class DaoTareas {
         cv.put(BDT.COLUMNS_TAREA[3],c.getFecha());
         cv.put(BDT.COLUMNS_TAREA[4],c.getHora());
         cv.put(BDT.COLUMNS_TAREA[5], c.getFordate());
+        cv.put(BDT.COLUMNS_TAREA[6], c.getCompletado());
 
         return _midb.insert(BDT.TABLE_TAREA_NAME,null,cv) ;
     }
@@ -39,6 +40,7 @@ public class DaoTareas {
         cv.put(BDT.COLUMNS_TAREA[3],c.getFecha());
         cv.put(BDT.COLUMNS_TAREA[4],c.getHora());
         cv.put(BDT.COLUMNS_TAREA[5], c.getFordate());
+        cv.put(BDT.COLUMNS_TAREA[6], c.getCompletado());
 
         return _midb.update(BDT.TABLE_TAREA_NAME,
                 cv,
@@ -65,10 +67,19 @@ public class DaoTareas {
                 tarea.setFecha(c.getString(c.getColumnIndex("Fecha")));
                 tarea.setHora(c.getString(c.getColumnIndex("Hora")));
                 tarea.setFordate(c.getString(c.getColumnIndex("FormatoFecha")));
+                tarea.setCompletado(c.getString(c.getColumnIndex("Completado")));
                 System.out.println(tarea.getFordate());
                 studentsArrayList.add(tarea);
             } while (c.moveToNext());
         }
         return studentsArrayList;
+    }
+
+    public long updateC(String id, String com){
+        String selectQuery = "UPDATE " + "recordatorio" + " SET Completado = '" + com +"' WHERE _id = '" + id + "'";
+        Log.d("", selectQuery);
+        SQLiteDatabase db = this._midb;
+        db.execSQL(selectQuery);
+        return 0;
     }
 }
