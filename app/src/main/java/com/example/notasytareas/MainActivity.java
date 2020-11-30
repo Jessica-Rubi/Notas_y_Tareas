@@ -73,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+//        Intent service = new Intent(this, NotifyService.class);
+//        this.startService(service);
     }
 
     public void  btnList_click(){
@@ -84,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 if(operaciones[which].equalsIgnoreCase(operaciones[0])){
-                                    Intent siguiente = new Intent(getApplication(), DatosNotas.class);
+                                    Intent siguiente = new Intent(getApplication(), DatosNotas1.class);
 
                                     siguiente.putExtra("operacion", "1");
                                     siguiente.putExtra("id", note.getId()+"");
@@ -192,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.insertar) {
-            Intent siguiente = new Intent(getApplication(),DatosNotas.class);
+            Intent siguiente = new Intent(getApplication(),DatosNotas1.class);
             siguiente.putExtra("operacion", "0");
             startActivityForResult(siguiente,1000);
             return true;

@@ -45,7 +45,6 @@ public class ActivityTareas extends AppCompatActivity {
         lista.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-
                 tarea = new Tareas();
                 tarea.setId(adp.getItem(i).getId());
                 tarea.setTitulo(adp.getItem(i).getTitulo());
@@ -55,7 +54,6 @@ public class ActivityTareas extends AppCompatActivity {
                 tarea.setFordate(adp.getItem(i).getFordate());
                 tarea.setCompletado(adp.getItem(i).getCompletado());
                 position = i;
-
                 btnList_click();
                 return false;
             }
@@ -98,7 +96,7 @@ public class ActivityTareas extends AppCompatActivity {
                                 public void onClick(DialogInterface dialog, int which) {
 
                                     if (operaciones[which].equalsIgnoreCase(operaciones[0])) {
-                                        Intent siguiente = new Intent(getApplication(), DatosTareas.class);
+                                        Intent siguiente = new Intent(getApplication(), DatosTareas1.class);
 
                                         siguiente.putExtra("operacion", "1");
                                         siguiente.putExtra("id", tarea.getId() + "");
@@ -132,7 +130,7 @@ public class ActivityTareas extends AppCompatActivity {
                                 public void onClick(DialogInterface dialog, int which) {
 
                                     if (operacionesv2[which].equalsIgnoreCase(operacionesv2[0])) {
-                                        Intent siguiente = new Intent(getApplication(), DatosTareas.class);
+                                        Intent siguiente = new Intent(getApplication(), DatosTareas1.class);
 
                                         siguiente.putExtra("operacion", "1");
                                         siguiente.putExtra("id", tarea.getId() + "");
@@ -205,9 +203,9 @@ public class ActivityTareas extends AppCompatActivity {
                     "\nHora: "+ dao.getAll().get(k).getHora() +
                     "\n";
             if(dao.getAll().get(k).getCompletado().equals("si")){
-                listImagenes[k] = imagenes[1];
-            }else {
-                listImagenes[k] = imagenes[0];
+                    listImagenes[k] = imagenes[1];
+            }else if(dao.getAll().get(k).getCompletado().equals("no")){
+                    listImagenes[k] = imagenes[0];
             }
         }
         adapter = new ListaAdapterT(this, titulos, listImagenes);
@@ -244,6 +242,7 @@ public class ActivityTareas extends AppCompatActivity {
                 recordatorio.setDescripcion(objcontacto.getDescripcion());
                 recordatorio.setFecha(objcontacto.getFecha());
                 recordatorio.setHora(objcontacto.getHora());
+                recordatorio.setFordate(objcontacto.getFordate());
                 cargardatos();
 
                 if (dao.update(recordatorio) > 0) {
@@ -269,7 +268,7 @@ public class ActivityTareas extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.insertar) {
-            Intent siguiente = new Intent(getApplication(), DatosTareas.class);
+            Intent siguiente = new Intent(getApplication(), DatosTareas1.class);
             siguiente.putExtra("operacion", "0");
             startActivityForResult(siguiente, 1000);
             return true;

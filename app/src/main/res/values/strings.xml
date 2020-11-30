@@ -35,4 +35,11 @@
     <string name="TareaNoI">No se pudo Insertar la Tarea</string>
     <string name="TareaA">Tarea Actualizada</string>
     <string name="TareaNoA">No se pudo Actualizar la Tarea</string>
+    <string name="Reproducir">Reproducir</string>
+    <string name="Detener">Detener</string>
+    <string name="Ver">Ver</string>
+    <string name="Archivo">Archivo</string>
+    <string name="Audio">Audio</string>
+    <string name="Imagen">Imagen</string>
+    <string name="Video">Vídeo</string>
 </resources>

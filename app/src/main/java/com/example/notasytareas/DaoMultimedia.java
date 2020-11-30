@@ -27,6 +27,7 @@ public class DaoMultimedia {
             cv.put(BDN.COLUMNS_MULTIMEDIA[2],mul.getDireccion());
             cv.put(BDN.COLUMNS_MULTIMEDIA[3],mul.getTipo());
             cv.put(BDN.COLUMNS_MULTIMEDIA[4],mul.getIdReference());
+            cv.put(BDN.COLUMNS_MULTIMEDIA[5],mul.getTipoArchivo());
             _midb.insert(BDN.TABLE_MULTIMEDIA_NAME,null,cv);
         }
 
@@ -37,9 +38,10 @@ public class DaoMultimedia {
         ContentValues cv = new ContentValues();
 
         cv.put(BDN.COLUMNS_MULTIMEDIA[1],c.getTitulo());
-        cv.put(BDN.COLUMNS_MULTIMEDIA[2],c.getDescripcion());
-        cv.put(BDN.COLUMNS_MULTIMEDIA[3],c.getDireccion());
-        cv.put(BDN.COLUMNS_MULTIMEDIA[4],c.getTipo());
+        cv.put(BDN.COLUMNS_MULTIMEDIA[2],c.getDireccion());
+        cv.put(BDN.COLUMNS_MULTIMEDIA[3],c.getTipo());
+        cv.put(BDN.COLUMNS_MULTIMEDIA[4],c.getIdReference());
+        cv.put(BDN.COLUMNS_MULTIMEDIA[5],c.getTipoArchivo());
 
         return _midb.update(BDN.TABLE_MULTIMEDIA_NAME,
                 cv,
@@ -65,6 +67,7 @@ public class DaoMultimedia {
                 sound.setDireccion(c.getString(c.getColumnIndex("Direccion")));
                 sound.setTipo(c.getString(c.getColumnIndex("Tipo")));
                 sound.setIdReference(c.getString(c.getColumnIndex("IDReference")));
+                sound.setTipoArchivo(c.getString(c.getColumnIndex("TipoArchivo")));
                 studentsArrayList.add(sound);
             } while (c.moveToNext());
         }

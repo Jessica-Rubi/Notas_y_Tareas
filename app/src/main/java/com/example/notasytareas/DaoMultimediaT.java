@@ -27,6 +27,7 @@ public class DaoMultimediaT {
             cv.put(BDT.COLUMNS_MULTIMEDIA[2],mul.getDireccion());
             cv.put(BDT.COLUMNS_MULTIMEDIA[3],mul.getTipo());
             cv.put(BDT.COLUMNS_MULTIMEDIA[4],mul.getIdReference());
+            cv.put(BDT.COLUMNS_MULTIMEDIA[5],mul.getTipoArchivo());
             _midb.insert(BDT.TABLE_MULTIMEDIA_NAME,null,cv);
         }
 
@@ -65,6 +66,7 @@ public class DaoMultimediaT {
                 sound.setDireccion(c.getString(c.getColumnIndex("Direccion")));
                 sound.setTipo(c.getString(c.getColumnIndex("Tipo")));
                 sound.setIdReference(c.getString(c.getColumnIndex("IDReference")));
+                sound.setTipoArchivo(c.getString(c.getColumnIndex("TipoArchivo")));
                 studentsArrayList.add(sound);
             } while (c.moveToNext());
         }

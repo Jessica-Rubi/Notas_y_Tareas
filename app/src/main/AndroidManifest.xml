@@ -24,11 +24,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DatosNotas" />
+        <activity android:name=".DatosNotas1" />
         <activity android:name=".ActivityTareas" />
-        <activity android:name=".DatosTareas" />
-        <activity android:name=".Imagen"></activity>
-        <activity android:name=".Video"></activity>
+        <activity android:name=".DatosTareas1" />
+        <receiver android:name=".AlarmReceiver"></receiver>
 
         <provider
             android:name="androidx.core.content.FileProvider"
