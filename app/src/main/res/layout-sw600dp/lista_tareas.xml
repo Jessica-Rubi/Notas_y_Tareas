@@ -5,8 +5,7 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="45dp"
-        android:background="#DDF6FA"
+        android:layout_height="100dp"
         android:id="@+id/layoutListaFormato">
 
 
@@ -32,6 +31,7 @@
             android:layout_toEndOf="@+id/iconLista"
             android:layout_toRightOf="@+id/iconLista"
             android:text="Large Text"
+            android:textSize="18dp"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
     </RelativeLayout>

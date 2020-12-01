@@ -35,4 +35,14 @@
     <string name="TareaNoI">Task could not be inserted</string>
     <string name="TareaA">Updated Task</string>
     <string name="TareaNoA">Could not Update Task</string>
+    <string name="Reproducir">Play</string>
+    <string name="Detener">Stop</string>
+    <string name="Ver">See</string>
+    <string name="Archivo">Archive</string>
+    <string name="Audio">Audio</string>
+    <string name="Imagen">Image</string>
+    <string name="Video">Video</string>
+    <string name="Nunca">Never</string>
+    <string name="Dias">Everyday</string>
+    <string name="Repetir">Repeat Reminder</string>
 </resources>

@@ -9,15 +9,17 @@ public class Multimedia implements Serializable {
     private String direccion;
     private String tipo;
     private String idReference;
+    private String tipoArchivo;
 
     public Multimedia() {
     }
 
-    public Multimedia(String titulo, String direccion, String tipo, String idReference) {
+    public Multimedia(String titulo, String direccion, String tipo, String idReference, String tipoArchivo) {
         this.titulo = titulo;
         this.direccion = direccion;
         this.tipo = tipo;
         this.idReference = idReference;
+        this.tipoArchivo = tipoArchivo;
     }
 
     public int getId() {
@@ -66,6 +68,14 @@ public class Multimedia implements Serializable {
 
     public void setIdReference(String idReference) {
         this.idReference = idReference;
+    }
+
+    public String getTipoArchivo() {
+        return tipoArchivo;
+    }
+
+    public void setTipoArchivo(String tipoArchivo) {
+        this.tipoArchivo = tipoArchivo;
     }
 
     @Override

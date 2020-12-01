@@ -21,14 +21,15 @@ public class BDT extends SQLiteOpenHelper {
             COLUMNS_TAREA[6]+" varchar(25) null);";
 
     public static final String[] COLUMNS_MULTIMEDIA =
-            {"_id","Titulo","Direccion", "Tipo","IDReference"};
+            {"_id","Titulo","Direccion", "Tipo","IDReference","TipoArchivo"};
     public static final String TABLE_MULTIMEDIA_NAME="multimedia";
     private  final String TABLE_MULTIMEDIA = "create table multimedia ("+
             COLUMNS_MULTIMEDIA[0]+" integer primary key autoincrement, "+
             COLUMNS_MULTIMEDIA[1]+" varchar(100) null," +
             COLUMNS_MULTIMEDIA[2]+" text not null," +
             COLUMNS_MULTIMEDIA[3]+" text not null," +
-            COLUMNS_MULTIMEDIA[4]+" text not null);";
+            COLUMNS_MULTIMEDIA[4]+" text not null," +
+            COLUMNS_MULTIMEDIA[5]+" text not null);";
 
     public BDT(Context contexto) {
         super(contexto, DB_NAME, null, DB_VERSION);
